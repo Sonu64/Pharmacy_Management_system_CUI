@@ -108,6 +108,7 @@ def add_stock():
 
         #THE PRICE AND STOCK ARE ACCESSED VIA THE MEDICINE NAME INDEX
         #FOR STOCK IT IS 1+ MEDICINE_NAM INDEX, WHILE FOR PRICE IT IS 2+
+	
        m_stock = str(m_stock)
        m_price = str(m_price)
        m_stock += "\n"
@@ -157,12 +158,13 @@ def add_medicine():
 
        current = str(current)
        current += "\n" #ADDING THE NEWLINE CHARACTER
-
        #STRING CONVERSION IS IMPORTANT AS writelines() CAN'T WRITE INTEGER TO A TEXT FILE
+
        pre_data[m_index+1] = current
 
        main_file = open_file("C:/Users/NSAM/Desktop/Pharmacy_managment_system/data.txt", "w")
-       #CAUTION ::: THIS FILE IS OPENED FOR THE SECOND TIME, THIS TIME ONLY FOR APPENDING DATA
+       #CAUTION ::: THIS FILE IS OPENED FOR THE SECOND TIME, THIS TIME ONLY FOR WRITING THE WHOLE DATA
+       #CAUTION ::: writelines() erases the whole file, and then writes the content, 	access mode is set to "w"
        #PREVIOUSLY IT WAS OPENED TO CREATE THE pre_data LIST
        main_file.writelines(pre_data)
        main_file.close()
@@ -239,9 +241,10 @@ def buy():
 
                                pre_data[m_index+1] = m_stock
                                pre_data[m_index+2] = m_price
-
-                               #CAUTION ::: THIS FILE IS OPENED FOR THE SECOND TIME, THIS TIME ONLY FOR APPENDING DATA
-                               #PREVIOUSLY IT WAS OPENED TO CREATE THE pre_data LIST
+			
+      				#CAUTION ::: THIS FILE IS OPENED FOR THE SECOND TIME, THIS TIME ONLY FOR WRITING THE WHOLE DATA
+       				#CAUTION ::: writelines() erases the whole file, and then writes the content, 	access mode is set to "w"
+				
                                main_file = open_file("C:/Users/NSAM/Desktop/Pharmacy_managment_system/data.txt", "w")
                                main_file.writelines(pre_data)
                                main_file.close()
@@ -294,7 +297,7 @@ def main():
                 choice = get_choice()
                 while choice not in [1, 2, 3, 4, 5]:
                         choice = get_choice()
-        if choice == 5:
+        if choice == 5: #EXIT PROGRAM
                 clear()
                 input("Press the ENTER key to exit....")
 
