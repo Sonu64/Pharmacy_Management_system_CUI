@@ -117,7 +117,7 @@ def add_stock():
 
        new_data = [m_name, m_stock, m_price]
        main_file = open_file("C:/Users/NSAM/Desktop/Pharmacy_managment_system/data.txt", "a")
-       main_file.writelines(new_data)
+       main_file.writelines(new_data) #HERE THE ACCESS MODE IS 'a', SO THE FILE IS NOT BEING COMPLETELY ERASED ! DATA IS APPENDED
        main_file.close()
        print("OPERATION SUCCESSFULL !, stock added !!")
        input("Press the ENTER key to continue...")
@@ -160,13 +160,14 @@ def add_medicine():
        current += "\n" #ADDING THE NEWLINE CHARACTER
        #STRING CONVERSION IS IMPORTANT AS writelines() CAN'T WRITE INTEGER TO A TEXT FILE
 
-       pre_data[m_index+1] = current
+       pre_data[m_index+1] = current #LIST CHANGE ONLY, NOT THE MAIN FILE
 
        main_file = open_file("C:/Users/NSAM/Desktop/Pharmacy_managment_system/data.txt", "w")
        #CAUTION ::: THIS FILE IS OPENED FOR THE SECOND TIME, THIS TIME ONLY FOR WRITING THE WHOLE DATA
        #CAUTION ::: writelines() erases the whole file, and then writes the content, 	access mode is set to "w"
        #PREVIOUSLY IT WAS OPENED TO CREATE THE pre_data LIST
-       main_file.writelines(pre_data)
+	
+       main_file.writelines(pre_data) #FILE WAS NOT PREVIOUSLY CHANGED, NOW IT CHANGED !!!
        main_file.close()
        print("OPERATION SUCCESSFULL, medicine added !!")
        input("Press the ENTER key to continue...")
@@ -210,10 +211,10 @@ def buy():
                        
                        m_stock = str(m_stock)
                        m_price = str(m_price)
-                       m_price = m_price[0:len(m_price)-1]
-                       m_stock = m_stock[0:len(m_stock)-1]
+                       m_price = m_price[0:len(m_price)-1] #OMITTING THE NEWLINE CHARACTER
+                       m_stock = m_stock[0:len(m_stock)-1] #OMITTING THE NEWLINE CHARACTER
 
-                       m_stock = int(m_stock)
+                       m_stock = int(m_stock) #INTEGER CONVERSION IS IMPORTANT FOR CALCULATIONS
                        m_price = int(m_price)
 
                        
@@ -234,19 +235,19 @@ def buy():
                                total_bill = m_price * no
                                m_stock = m_stock - no
                                
-                               m_stock = str(m_stock)
+                               m_stock = str(m_stock) #STRING CONVERSION IS IMPORTANT AS writelines() CAN'T WRITE INTEGERS TO TEXT FILES
                                m_price = str(m_price)
                                m_stock += "\n"
                                m_price += "\n"
 
-                               pre_data[m_index+1] = m_stock
+                               pre_data[m_index+1] = m_stock #CHANGE IN THE LIST CONTENT, NOT THE FILE
                                pre_data[m_index+2] = m_price
 			
       				#CAUTION ::: THIS FILE IS OPENED FOR THE SECOND TIME, THIS TIME ONLY FOR WRITING THE WHOLE DATA
        				#CAUTION ::: writelines() erases the whole file, and then writes the content, 	access mode is set to "w"
 				
                                main_file = open_file("C:/Users/NSAM/Desktop/Pharmacy_managment_system/data.txt", "w")
-                               main_file.writelines(pre_data)
+                               main_file.writelines(pre_data) #FILE CHANGED NOW !!!!
                                main_file.close()
                                
                                print("OPERATION SUCCESSULL ! Here's the Bill...\n")
